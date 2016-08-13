@@ -1,5 +1,12 @@
+function postMessage() {
+    var messgeToPost = {
+        //'ButtonId':'mobile_share_fb'
+        'ButtonId':'clickMeButton'
+    };
+    window.webkit.messageHandlers.buttonClicked.postMessage(messgeToPost);
+}
+
 var button = document.getElementById("clickMeButton");
-button.addEventListener("click", function() {
-            var messgeToPost = {'ButtonId':'clickMeButton'};
-            window.webkit.messageHandlers.buttonClicked.postMessage(messgeToPost);
-        },false);
+//var button = document.getElementById("tsbb");
+//var button = document.getElementByClass("mobile_share_fb")
+button.addEventListener("click", postMessage ,false);
