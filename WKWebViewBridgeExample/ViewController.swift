@@ -38,9 +38,20 @@ class ViewController : UIViewController {
         
         // Add a script message handler for receiving  "buttonClicked" event notifications posted from the JS document using window.webkit.messageHandlers.buttonClicked.postMessage script message
         userController.addScriptMessageHandler(self, name: "buttonClicked")
+        userController.addScriptMessageHandler(self, name: "openGraphClicked")
         
         // Get script that's to be injected into the document
         if let js = buttonClickEventTriggeredScriptToAddToDocument() {
+            
+            // Specify when and where and what user script needs to be injected into the web document
+            let userScript =  WKUserScript(source: js, injectionTime: WKUserScriptInjectionTime.AtDocumentEnd, forMainFrameOnly: false)
+            
+            // Add the user script to the WKUserContentController instance
+            userController.addUserScript(userScript)
+        }
+        
+        // Get script that's to be injected into the document
+        if let js = OpenGraphTagsExtractionScriptToAddToDocument() {
             
             // Specify when and where and what user script needs to be injected into the web document
             let userScript =  WKUserScript(source: js, injectionTime: WKUserScriptInjectionTime.AtDocumentEnd, forMainFrameOnly: false)
@@ -80,13 +91,13 @@ class ViewController : UIViewController {
         
         // Load the HTML document
         loadHtml()
-        //        let sitePath = "http://www.google.com/"
-        //        //let sitePath = "http://kaytana.yediot.co.il"
-        //        guard let URLObject = NSURL(string: sitePath) else {
-        //            print("=========: ERROR: COULD NOT CREATE URL OBJCTE :=========")
-        //            return
-        //        }
-        //        webView.loadRequest(NSURLRequest(URL: URLObject))
+        // let sitePath = "http://www.google.com/"
+        // //let sitePath = "http://kaytana.yediot.co.il"
+        // guard let URLObject = NSURL(string: sitePath) else {
+        //     print("=========: ERROR: COULD NOT CREATE URL OBJCTE :=========")
+        //     return
+        // }
+        // webView.loadRequest(NSURLRequest(URL: URLObject))
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -110,6 +121,7 @@ class ViewController : UIViewController {
     
     // File Loading
     func loadHtml() {
+        
         // NOTE: Due to a bug in webKit as of iOS 8.1.1 we CANNOT load a local resource when running on device. Once that is fixed, we can get rid of the temp copy
         let mainBundle = NSBundle(forClass: ViewController.self)
         
@@ -117,6 +129,7 @@ class ViewController : UIViewController {
         let tempHtmlPath = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent(fileName)
         
         guard let htmlPath = mainBundle.pathForResource("TestFile", ofType: "html") else { showAlertWithMessage("Could not load HTML File!"); return }
+        
         do {
             try NSFileManager.defaultManager().copyItemAtPath(htmlPath, toPath: tempHtmlPath)
         } catch let error as NSError {
@@ -134,6 +147,18 @@ class ViewController : UIViewController {
         let mainBundle = NSBundle(forClass: ViewController.self)
         
         if let filePath = mainBundle.pathForResource("ClickMeEventRegister", ofType:"js") {
+            
+            script = try? String (contentsOfFile: filePath, encoding: NSUTF8StringEncoding)
+        }
+        return script
+        
+    }
+    
+    func OpenGraphTagsExtractionScriptToAddToDocument() -> String? {
+        
+        var script : String?
+        let mainBundle = NSBundle(forClass: ViewController.self)
+        if let filePath = mainBundle.pathForResource("OpenGraphTagsExtraction", ofType:"js") {
             
             script = try? String (contentsOfFile: filePath, encoding: NSUTF8StringEncoding)
         }
@@ -288,7 +313,20 @@ extension ViewController : WKNavigationDelegate {
 extension ViewController : WKScriptMessageHandler {
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
         
-        guard let messageBody = message.body as? NSDictionary , let idOfTappedButton = messageBody["ButtonId"] as? String else { return }
-        updateColorOfButtonWithId(idOfTappedButton)
+        switch message.name {
+            
+        case "buttonClicked":
+            guard let messageBody = message.body as? NSDictionary else { return }
+            guard let idOfTappedButton = messageBody["ButtonId"] as? String else { return }
+            updateColorOfButtonWithId(idOfTappedButton)
+            
+        case "openGraphClicked":
+            guard let messageBody = message.body as? NSDictionary else { return }
+            for (key, value) in messageBody {
+                print("messageBody: key: \(key), value: \(value)")
+            }
+            
+        default: break
+        }
     }
 }

@@ -17,6 +17,7 @@
 		02549F3A1A3734F600FF51B4 /* ClickMeEventRegister.js in Resources */ = {isa = PBXBuildFile; fileRef = 02549F381A3734F600FF51B4 /* ClickMeEventRegister.js */; };
 		02549F3C1A373B1D00FF51B4 /* TestFile.html in Resources */ = {isa = PBXBuildFile; fileRef = 02549F3B1A373B1D00FF51B4 /* TestFile.html */; };
 		02549F3D1A373B1D00FF51B4 /* TestFile.html in Resources */ = {isa = PBXBuildFile; fileRef = 02549F3B1A373B1D00FF51B4 /* TestFile.html */; };
+		5DBB02781D60A57500318D09 /* OpenGraphTagsExtraction.js in Resources */ = {isa = PBXBuildFile; fileRef = 5DBB02771D60A57500318D09 /* OpenGraphTagsExtraction.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		02549F291A364DB700FF51B4 /* WKWebViewBridgeExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWebViewBridgeExampleTests.swift; sourceTree = "<group>"; };
 		02549F381A3734F600FF51B4 /* ClickMeEventRegister.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ClickMeEventRegister.js; path = ../ClickMeEventRegister.js; sourceTree = "<group>"; };
 		02549F3B1A373B1D00FF51B4 /* TestFile.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TestFile.html; sourceTree = "<group>"; };
+		5DBB02771D60A57500318D09 /* OpenGraphTagsExtraction.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = OpenGraphTagsExtraction.js; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				02549F3B1A373B1D00FF51B4 /* TestFile.html */,
 				02549F381A3734F600FF51B4 /* ClickMeEventRegister.js */,
+				5DBB02771D60A57500318D09 /* OpenGraphTagsExtraction.js */,
 				02549F121A364DB700FF51B4 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -204,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02549F3C1A373B1D00FF51B4 /* TestFile.html in Resources */,
+				5DBB02781D60A57500318D09 /* OpenGraphTagsExtraction.js in Resources */,
 				02549F191A364DB700FF51B4 /* Main.storyboard in Resources */,
 				02549F391A3734F600FF51B4 /* ClickMeEventRegister.js in Resources */,
 				02549F1E1A364DB700FF51B4 /* LaunchScreen.xib in Resources */,
