@@ -91,13 +91,14 @@ class ViewController : UIViewController {
         
         // Load the HTML document
         loadHtml()
-        // let sitePath = "http://www.google.com/"
-        // //let sitePath = "http://kaytana.yediot.co.il"
-        // guard let URLObject = NSURL(string: sitePath) else {
-        //     print("=========: ERROR: COULD NOT CREATE URL OBJCTE :=========")
-        //     return
-        // }
-        // webView.loadRequest(NSURLRequest(URL: URLObject))
+        //let sitePath = "http://www.google.com/"
+        //let sitePath = "http://kaytana.yediot.co.il"
+        let sitePath =  "http://www.yediot.co.il/Iphone/Html/Yedioth/0,,L-Article-V9-4845973,00.html"
+        guard let URLObject = NSURL(string: sitePath) else {
+            print("=========: ERROR: COULD NOT CREATE URL OBJCTE :=========")
+            return
+        }
+        webView.loadRequest(NSURLRequest(URL: URLObject))
     }
     
     override func viewDidDisappear(animated: Bool) {
