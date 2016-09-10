@@ -72,6 +72,11 @@ class ViewController : UIViewController {
         }
     }
     
+    deinit {
+        webView.configuration.userContentController.removeScriptMessageHandlerForName( "buttonClicked"   )
+        webView.configuration.userContentController.removeScriptMessageHandlerForName( "openGraphClicked")
+        webView.configuration.userContentController.removeAllUserScripts()
+    }
     // MARK: - View LifeCycle
     override func loadView() {
         super.loadView()
